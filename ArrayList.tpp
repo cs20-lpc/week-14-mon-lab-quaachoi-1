@@ -1,16 +1,79 @@
 template <typename T>
 void ArrayList<T>::bubbleSort() {
-    // TODO
+    bool swapped;
+    this->numComps = 0;
+    this->numSwaps = 0;
+    for(int i = 0; i < this->getLength() - 1; i++)
+    {
+        swapped = false;
+        for(int k = 0; k < this->getLength() - i - 1; k++)
+        {
+            this->numComps++;
+            if(buffer[k] > buffer[k+1])
+            {
+                this->numSwaps++;
+                this->swap(k, k+1);
+                swapped = true;
+            }
+        }
+        if(!swapped)
+        {
+            break;
+        }
+    }
 }
 
 template <typename T>
 void ArrayList<T>::insertionSort() {
-    // TODO
+    this->numComps = 0;
+    this->numSwaps = 0;
+    for(int i = 1; i < this->getLength(); ++i)
+    {
+        T key = buffer[i];
+        int j = i - 1;
+
+        while(j >= 0)
+        {
+            numComps++;
+            if(buffer[j] > key)
+            {
+                this->swap(j+1, j);
+                this->numSwaps++;
+                j--;
+            }
+            else
+            {
+                break;
+            }
+        }
+        buffer[j + 1] = key;
+    }
 }
 
 template <typename T>
 void ArrayList<T>::selectionSort() {
-    // TODO
+    this->numComps = 0;
+    this->numSwaps = 0;
+     for (int i = 1; i < this->getLength(); ++i) 
+     {
+        int j = i;
+
+        // Move the element at index i left until it's in the right place
+        while (j > 0) 
+        {
+            this->numComps++;
+            if (buffer[j] < buffer[j - 1]) 
+            {
+                this->swap(j, j - 1);
+                this->numSwaps++;
+                j--;
+            } 
+            else 
+            {
+                break;
+            }
+        }
+    }
 }
 
 /*******************************************************************************
@@ -161,13 +224,13 @@ void ArrayList<T>::sort(int algo) {
     numComps = numSwaps = 0;
 
     if (algo == 1) {
-        bubbleSort();
+        this->bubbleSort();
     }
     else if (algo == 2) {
-        selectionSort();
+        this->selectionSort();
     }
     else if (algo == 3) {
-        insertionSort();
+        this->insertionSort();
     }
     else {
         throw string("sort: error, undefined algorithm chosen");
